@@ -10,7 +10,7 @@ var LYCRA = LYCRA || {}
 LYCRA.Browser = function (audio) {
 
     function onResize() {
-        if (window.innerHeight > window.innerWidth && that.isMobile === true) {
+        if (isPortraitMode() === true) {
             //alert("Please use Landscape!");
 
         } else {
@@ -19,30 +19,30 @@ LYCRA.Browser = function (audio) {
         }
     }
 
-    function copyToClipboard(text) {
-        if (window.clipboardData && window.clipboardData.setData) {
-          // IE specific code path to prevent textarea being shown while dialog is visible.
-          return clipboardData.setData("Text", text);
-  
-        } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-          var textarea = document.createElement("textarea");
-          textarea.textContent = text;
-          textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
-          document.body.appendChild(textarea);
-          textarea.select();
-          try {
-            return document.execCommand("copy"); // Security exception may be thrown by some browsers.
-          } catch (ex) {
-            console.warn("Copy to clipboard failed.", ex);
-            return false;
-          } finally {
-            document.body.removeChild(textarea);
-          }
-        }
-      }
 }
 
 LYCRA.Browser.prototype = {
+    copyToClipboard: function (text) {
+        if (window.clipboardData && window.clipboardData.setData) {
+            // IE specific code path to prevent textarea being shown while dialog is visible.
+            return clipboardData.setData("Text", text);
+
+        } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+            var textarea = document.createElement("textarea");
+            textarea.textContent = text;
+            textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                return document.execCommand("copy"); // Security exception may be thrown by some browsers.
+            } catch (ex) {
+                console.warn("Copy to clipboard failed.", ex);
+                return false;
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+    },
     isMobile: function () {
         var check = false;
         (function (a) {
@@ -58,7 +58,9 @@ LYCRA.Browser.prototype = {
     isPortraitMode: function () {
         this.isMobile = isMobile();
         if (window.innerHeight > window.innerWidth && this.isMobile === true) {
-
+            return true;
+        } else {
+            return false;
         }
     },
     isFirefox: function () {
