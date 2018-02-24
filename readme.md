@@ -7,8 +7,12 @@ A collection of frequently used and requested features packed into a friendly he
     * Player
     * Analyser
 
-2. Mobile
+2. Browser Tools
     * Orientation Detection 
+    * Force Portrait
+    * Detect Mobile
+    * Detect Firefox
+    * Copy to Clipboard
 
 3. Loader
 

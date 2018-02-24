@@ -1,10 +1,3 @@
-/*
-
-
-
-Copyright Garrett Criss
-*/
-
 var LYCRA = LYCRA || {}
 
 LYCRA.Audio = function (audio) {

@@ -9,7 +9,9 @@ var LYCRA = LYCRA || {}
 
 LYCRA.Audio = function (audio) {
 
-    this.activeSound;
+    this.state = {};
+
+    this.activeSound = {};
     this.playing = false;
 
     this.soundParams = {
@@ -19,8 +21,24 @@ LYCRA.Audio = function (audio) {
 }
 
 LYCRA.Audio.prototype = {
-    init: function () {
+    // @param: An array of sounds
+    init: function (sounds) {
 
+        this.activeSound = new Howl({
+            src: sounds,
+            autoplay: true,
+            loop: true,
+            volume: 0,
+            onend: function () {
+                //console.log('Finished!');
+            }
+        });
+    },
+    stopSound: function ()  {
+        this.activeSound.stop();
+    },
+    playSound: function () {
+        this.activeSound.play();
     },
     toggleSound: function (state) {
         //var that = this;
@@ -30,15 +48,12 @@ LYCRA.Audio.prototype = {
             //turn sound on
             this.activeSound.fade(0, this.soundParams.volume, 1000);
             this.soundParams.playState = true;
-            //map.audioButton.src = `${map.globalData.assetUrl}images/sidebar/audio-on.png`;
 
         } else {
             //turn sound off
             this.activeSound.fade(this.soundParams.volume, 0, 1000);
             this.soundParams.playState = false;
-            //map.audioButton.src = `${map.globalData.assetUrl}images/sidebar/audio-off.png`;
-            //Howler.muted(true);
-            //map.backgroundSound.stop();
+
         }
     },
     isPlaying: function () {

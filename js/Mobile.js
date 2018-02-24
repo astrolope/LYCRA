@@ -1,6 +1,0 @@
-/*
-
-
-
-Copyright Garrett Criss
-*/
